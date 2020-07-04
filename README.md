@@ -28,3 +28,29 @@ Temperaturas
 - GET /temperaturas/paises/{codigoPais} : que devuelva la lista de temperaturas con sus años de un
 país especifico, indicado por “codigoPais”.
 - DELETE /temperaturas/{id}: no se borrará la temperatura id, deberá cambiar el año a 0
+
+
+BONUS:
+
+- GET /temperaturas/anios/{anio} : que devuelva la lista de temperaturas de un año en particular en
+el siguiente formato JSON Array:
+
+[{
+“nombrePais”: “Argentina”,
+“grados”: 29
+},
+{
+“nombrePais”: “Venezuela”,
+“grados”: 45
+}]
+
+- GET /temperaturas/maximas/{codigoPais} : que devuelva la temperatura máxima para un país en
+particular en este formato JSON(informar el año en que ocurrió)
+
+{
+“nombrePais”: “Venezuela”,
+“temperaturaMaxima”: 45,
+“anio”: 2011
+}
+
+
