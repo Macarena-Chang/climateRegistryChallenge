@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import com.example.climate_challenge.entities.*;
+import com.example.climate_challenge.models.responses.Tempview;
 import com.example.climate_challenge.repositories.PaisRepository;
 import com.example.climate_challenge.repositories.TemperaturaRepository;
 
@@ -23,24 +24,24 @@ public class TemperaturaService {
         List<Temperatura> temperaturasExistentes = new ArrayList<>();
         temperaturasExistentes = temperaturaRepo.findAll();
 
-       
-        //JAVA VERSION: Check if a temperature for this country and year already exists in database.
-        //This could also be done by adding ALTER TABLE temperatura ADD CONSTRAINT uniqueCombCountryYear UNIQUE (codigo_pais, anio)
-        for(int i=0; i<temperaturasExistentes.size(); i++){
+        // JAVA VERSION: Check if a temperature for this country and year already exists
+        // in database.
+        // This could also be done by adding ALTER TABLE temperatura ADD CONSTRAINT
+        // uniqueCombCountryYear UNIQUE (codigo_pais, anio)
+        for (int i = 0; i < temperaturasExistentes.size(); i++) {
 
-            Pais codigoP = temperaturasExistentes.get(i).getCodigoPais(); 
+            Pais codigoP = temperaturasExistentes.get(i).getCodigoPais();
             int a = temperaturasExistentes.get(i).getAnio();
-            
-            if(codigoP ==  temperatura.getCodigoPais() && a == temperatura.getAnio()){
-              
-                return false; 
+
+            if (codigoP == temperatura.getCodigoPais() && a == temperatura.getAnio()) {
+
+                return false;
             }
         }
-       
-        temperaturaRepo.save(temperatura);
-        return true; 
-    }
 
+        temperaturaRepo.save(temperatura);
+        return true;
+    }
 
     public void borrarTemperatura(Temperatura temperatura) {
 
@@ -64,6 +65,27 @@ public class TemperaturaService {
             return t.get();
         }
         return null;
+    }
+
+    public List<Tempview> getTemperaturasPorAnio(int anio) {
+
+        List<Temperatura> temperaturas = new ArrayList();
+        temperaturas = temperaturaRepo.findByAnio(anio);
+
+        List<Tempview> tempviews = new ArrayList<>();
+        
+
+        for (int i = 0; i < temperaturas.size(); i++){
+            Tempview t = new Tempview();
+             t.nombre = temperaturas.get(i).getCodigoPais().getNombre();
+             t.grados = temperaturas.get(i).getGrados();
+                
+                System.out.println(t.nombre + t.grados);
+                tempviews.add(t);
+            
+        }
+
+        return tempviews;
     }
 
 }

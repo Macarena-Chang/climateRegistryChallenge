@@ -6,6 +6,7 @@ import com.example.climate_challenge.entities.Pais;
 import com.example.climate_challenge.entities.Temperatura;
 import com.example.climate_challenge.models.requests.TemperaturaRequest;
 import com.example.climate_challenge.models.responses.GenericResponse;
+import com.example.climate_challenge.models.responses.Tempview;
 import com.example.climate_challenge.services.PaisService;
 import com.example.climate_challenge.services.TemperaturaService;
 
@@ -70,6 +71,29 @@ public class TemperaturaController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
+
+
+
+    @GetMapping("/temperaturas/anios/{anio}")
+    public ResponseEntity<?> getTempPorAnio(@PathVariable int anio){
+
+        List<Tempview> temp = new ArrayList<>(); 
+        temp = temperaturaService.getTemperaturasPorAnio(anio);
+
+        if (temp.isEmpty()) {            
+
+            GenericResponse resp = new GenericResponse();
+            resp.isOk = false;            
+            resp.message = "No hay resultados";
+
+            return ResponseEntity.ok(resp);
+        }
+
+        return ResponseEntity.ok(temp); 
+
+    }
+
+    
 
 
 
