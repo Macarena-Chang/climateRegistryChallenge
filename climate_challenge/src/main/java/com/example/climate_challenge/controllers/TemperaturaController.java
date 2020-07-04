@@ -7,6 +7,8 @@ import com.example.climate_challenge.entities.Temperatura;
 import com.example.climate_challenge.models.requests.TemperaturaRequest;
 import com.example.climate_challenge.models.responses.GenericResponse;
 import com.example.climate_challenge.models.responses.Tempview;
+import com.example.climate_challenge.models.responses.TempviewMax;
+import com.example.climate_challenge.repositories.TemperaturaRepository;
 import com.example.climate_challenge.services.PaisService;
 import com.example.climate_challenge.services.TemperaturaService;
 
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TemperaturaController {
+    @Autowired
+    TemperaturaRepository tr; 
 
     
     @Autowired
@@ -92,6 +96,18 @@ public class TemperaturaController {
         return ResponseEntity.ok(temp); 
 
     }
+
+
+
+    @GetMapping("/temperaturas/maximas/{codigoPais}")
+    public ResponseEntity<?> getTempMax(@PathVariable int codigoPais){
+        TempviewMax  tMax = temperaturaService.buscarMaxPorPais(codigoPais);
+        
+        return ResponseEntity.ok(tMax); 
+    }
+
+
+
 
     
 

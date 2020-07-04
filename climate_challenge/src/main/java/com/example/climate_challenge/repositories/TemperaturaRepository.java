@@ -15,6 +15,11 @@ import org.springframework.stereotype.Repository;
 public interface TemperaturaRepository  extends JpaRepository<Temperatura, Integer>  {
 
 
-    public List<Temperatura> findByAnio(int anio);
+    List<Temperatura> findByAnio(int anio);
+
+    @Query("Select t FROM Temperatura t WHERE t.codigoPais.codigoPais = :codigoPais")
+    List<Temperatura> findAllByCodigoPais(@Param("codigoPais") int codigoPais);
+
+
   
 }

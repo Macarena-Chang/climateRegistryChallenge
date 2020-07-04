@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.example.climate_challenge.entities.*;
 import com.example.climate_challenge.models.responses.Tempview;
+import com.example.climate_challenge.models.responses.TempviewMax;
 import com.example.climate_challenge.repositories.PaisRepository;
 import com.example.climate_challenge.repositories.TemperaturaRepository;
 
@@ -73,19 +74,41 @@ public class TemperaturaService {
         temperaturas = temperaturaRepo.findByAnio(anio);
 
         List<Tempview> tempviews = new ArrayList<>();
-        
 
-        for (int i = 0; i < temperaturas.size(); i++){
+        for (int i = 0; i < temperaturas.size(); i++) {
             Tempview t = new Tempview();
-             t.nombre = temperaturas.get(i).getCodigoPais().getNombre();
-             t.grados = temperaturas.get(i).getGrados();
-                
-                System.out.println(t.nombre + t.grados);
-                tempviews.add(t);
-            
+            t.nombre = temperaturas.get(i).getCodigoPais().getNombre();
+            t.grados = temperaturas.get(i).getGrados();
+
+            System.out.println(t.nombre + t.grados);
+            tempviews.add(t);
+
         }
 
         return tempviews;
+    }
+
+    public TempviewMax buscarMaxPorPais(int codigoPais) {
+
+        TempviewMax tMax = new TempviewMax();
+
+        tMax.temperaturaMaxima = 0.00;
+
+        List<Temperatura> temperaturasList = new ArrayList<>();
+        temperaturasList = temperaturaRepo.findAllByCodigoPais(codigoPais);
+
+        for (int i = 0; i < temperaturasList.size(); i++) {
+
+            if (temperaturasList.get(i).getGrados() > tMax.temperaturaMaxima) {
+
+                tMax.anio = temperaturasList.get(i).getAnio();
+                tMax.nombre = temperaturasList.get(i).getCodigoPais().getNombre();
+                tMax.temperaturaMaxima = temperaturasList.get(i).getGrados();
+            }
+        }
+
+        return tMax;
+
     }
 
 }
