@@ -80,7 +80,7 @@ public class TemperaturaService {
             t.nombre = temperaturas.get(i).getCodigoPais().getNombre();
             t.grados = temperaturas.get(i).getGrados();
 
-            System.out.println(t.nombre + t.grados);
+            
             tempviews.add(t);
 
         }
