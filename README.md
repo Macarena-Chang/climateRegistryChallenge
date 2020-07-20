@@ -1,3 +1,12 @@
+## 📌WEB API
+* Utilizando: Springboot
+* Deployado: Heroku
+* Base de datos: MYSQL
+
+Se deployó con heroku: https://climateregistry.herokuapp.com/  (se utilizo POSTGRE para base de datos ya que es de manera gratuita) 
+
+
+
 Challenge: NASA Climate Change Records per Year:
 
 Armar un prototipo de API Rest que permita registrar temperatura anual para diferentes paises.
